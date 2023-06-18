@@ -173,11 +173,11 @@ public:
 
   /**
 	* Return a standard help menu
-	* @param bAboutQtMenu not used anymore
+	* @param bAboutRolyMenu
 	* @param appAboutText a little text about the application
 	* @return a standard help menu
 	*/
-  QPopupMenu* getHelpMenu( bool bAboutQtMenu, const char* appAboutText );
+  QPopupMenu* getHelpMenu( bool bAboutRolyMenu, const char* appAboutText );
 							 
 
   /**
@@ -564,7 +564,7 @@ private slots:
   void appHelpActivated();
   void aboutKDE();
   void aboutApp();
-  void aboutQt();
+  void aboutRoly();
 
 private:
   void* pAppData; // don't touch this without Kalles permission

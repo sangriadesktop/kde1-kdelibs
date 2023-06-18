@@ -369,18 +369,18 @@ static int kde_xio_errhandler( Display * )
 }
 
 KApplication::KApplication( int& argc, char** argv ) :
-  QApplication( argc, argv )
+        QApplication( argc, argv )
 {
-  QString aArgv0 = argv[0];
-  int nSlashPos = aArgv0.findRev( '/' );
-  if( nSlashPos != -1 )
-	aAppName = aArgv0.remove( 0, nSlashPos+1 );
-  else
-	aAppName = aArgv0;
+    QString aArgv0 = argv[0];
+    int nSlashPos = aArgv0.findRev( '/' );
+    if( nSlashPos != -1 )
+        aAppName = aArgv0.remove( 0, nSlashPos+1 );
+    else
+        aAppName = aArgv0;
 
-  init();
+    init();
 
-  parseCommandLine( argc, argv );
+    parseCommandLine( argc, argv );
 
 }
 
@@ -611,34 +611,32 @@ KIconLoader* KApplication::getIconLoader()
 }
 
 
-QPopupMenu* KApplication::getHelpMenu( bool /*bAboutQtMenu*/,
-									   const char* aboutAppText )
+QPopupMenu* KApplication::getHelpMenu( bool bAboutRolyMenu,
+                                       const char* aboutAppText )
 {
-  QPopupMenu* pMenu = new QPopupMenu();
+    QPopupMenu* pMenu = new QPopupMenu();
 
-  int id = pMenu->insertItem( klocale->translate( "&Contents" ) );
-  pMenu->connectItem( id, this, SLOT( appHelpActivated() ) );
-  pMenu->setAccel( Key_F1, id );
+    int id = pMenu->insertItem( klocale->translate( "&Contents" ) );
+    pMenu->connectItem( id, this, SLOT( appHelpActivated() ) );
+    pMenu->setAccel( Key_F1, id );
 
-  pMenu->insertSeparator();
+    pMenu->insertSeparator();
 
-  id = pMenu->insertItem( QString(klocale->translate( "&About" )) + " " + aAppName + "...");
-  if( aboutAppText )
-	{
-	  pMenu->connectItem( id, this, SLOT( aboutApp() ) );
-	  aAppAboutString = aboutAppText;
-	}
+    id = pMenu->insertItem( QString(klocale->translate( "&About" )) + " " + aAppName + "...");
+    if( aboutAppText )
+    {
+        pMenu->connectItem( id, this, SLOT( aboutApp() ) );
+        aAppAboutString = aboutAppText;
+    }
 
-  id = pMenu->insertItem( klocale->translate( "About &KDE..." ) );
-  pMenu->connectItem( id, this, SLOT( aboutKDE() ) );
-  /*
-	if( bAboutQtMenu )
-	{
-	id = pMenu->insertItem( klocale->translate( "About Qt" ) );
-	pMenu->connectItem( id, this, SLOT( aboutQt() ) );
-	}
-  */
-  return pMenu;
+    id = pMenu->insertItem( klocale->translate( "About &Sangria..." ) );
+    pMenu->connectItem( id, this, SLOT( aboutKDE() ) );
+    if( bAboutRolyMenu )
+    {
+        id = pMenu->insertItem( klocale->translate( "About Roly" ) );
+        pMenu->connectItem( id, this, SLOT( aboutRoly() ) );
+    }
+    return pMenu;
 }
 
 
@@ -650,14 +648,12 @@ void KApplication::appHelpActivated()
 
 void KApplication::aboutKDE()
 {
-  QMessageBox::about( 0L, klocale->translate( "About KDE" ),
+  QMessageBox::about( 0L, klocale->translate( "About Sangria" ),
 					  klocale->translate(
-"\nThe KDE Desktop Environment was written by the KDE Team,\n"
-"a world-wide network of software engineers committed to\n"
-"free software development.\n\n"
-"Visit http://www.kde.org for more information on the KDE\n"
-"Project. Please consider joining and supporting KDE.\n\n"
-"Please report bugs at http://bugs.kde.org.\n"
+"\nThe Sangria Desktop Environment was written by the Sangria Team.\n"
+"Visit https://sangria.qobo.tv for more information on the Sangria\n"
+"Project. Please consider joining and supporting Sangria.\n\n"
+"Please report bugs at [placeholder domain].\n"
 ));
 }
 
@@ -667,9 +663,9 @@ void KApplication::aboutApp()
 }
 
 
-void KApplication::aboutQt()
+void KApplication::aboutRoly()
 {
-  //  QMessageBox::aboutQt( NULL, getCaption() );
+  QMessageBox::aboutRoly( NULL, getCaption() );
 }
 
 

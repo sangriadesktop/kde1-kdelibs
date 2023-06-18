@@ -25,6 +25,7 @@ static int registered = 0;
 void kimgioRegister(void)
 {
 	if( registered ) {
+        debug("KIMGIO: Already registered.");
 		return;
 	}
 
@@ -34,6 +35,7 @@ void kimgioRegister(void)
 	// JPEG
 	QImageIO::defineIOHandler( "JPEG", "^\377\330", 0,
 			kimgio_jpeg_read, kimgio_jpeg_write );
+    debug("KIMGIO: Registering JPEG.");
 #endif
 
 	// XV thumbnails
@@ -46,10 +48,12 @@ void kimgioRegister(void)
 #ifdef HAVE_LIBPNG
 	QImageIO::defineIOHandler( "PNG", "^.PNG", 0,
 		kimgio_png_read, kimgio_png_write );
+    debug("KIMGIO: Registering PNG.");
 #endif
 
 #ifdef HAVE_LIBTIFF
 	QImageIO::defineIOHandler("TIFF","[MI][MI]", 0,
                 kimgio_tiff_read, kimgio_tiff_write );
+    debug("KIMGIO: Registering TIFF.");
 #endif
 }
